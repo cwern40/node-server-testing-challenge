@@ -1,3 +1,5 @@
+const db = require('../data/dbConfig')
+
 module.exports = {
     find,
     add,
@@ -5,7 +7,7 @@ module.exports = {
 }
 
 function find() {
-
+    return db('characters');
 }
 
 function add() {
@@ -13,5 +15,5 @@ function add() {
 }
 
 function remove() {
-    
+
 }

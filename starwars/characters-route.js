@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
             res.json(characters)
         })
         .catch(err => {
+            console.log(err)
             res.status(500).json(err)
         })
 })

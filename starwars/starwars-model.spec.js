@@ -1,29 +1,26 @@
 const Characters = require('./characters-model');
-const router = require('./characters-route');
+const server = require('../api/server')
 const request = require('supertest');
 const db = require('../data/dbConfig');
 
 describe('The StarWars Model', () => {
 
     beforeEach(async () => {
-        await db('starwars').truncate();
+        await db('characters').truncate();
     })
 
-    describe('the find function', () => {
-        it('should return status code of 200', () => {
-            return request(router)
-                .get('/')
-                .then(res => {
-                    expect(res.status).toBe(200);
-                });
+    describe('Get /', () => {
+
+        it('should return status code of 200', async () => {
+            const res = await request(server).get('/api/starwars');
+
+            expect(res.status).toBe(200);
         });
 
-        it('should return a list of characters', () => {
-            return request(router)
-                .get('/')
-                .then(res => {
-                    expect(res.body.length).toBe(0)
-                })
+        it('should return a list of characters', async () => {
+            const characters = await Characters.find()
+            
+            expect(characters.length).toBe(0)
         })
     })
 })
