@@ -23,4 +23,8 @@ describe('The StarWars Model', () => {
             expect(characters.length).toBe(0)
         })
     })
+
+    describ('the add function', async () => {
+        
+    })
 })
