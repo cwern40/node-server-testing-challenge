@@ -10,10 +10,10 @@ function find() {
     return db('characters');
 }
 
-function add() {
-
+function add(character) {
+    return db('characters').insert(character);
 }
 
-function remove() {
-
+function remove(id) {
+    return db('characters').where({ id }).del();
 }

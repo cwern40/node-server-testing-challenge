@@ -24,7 +24,50 @@ describe('The StarWars Model', () => {
         })
     })
 
-    describ('the add function', async () => {
+    describe('the add function', async () => {
         
+        it('shoud add a new character', async () => {
+            const characterData = { name: 'Han Solo' };
+            const character = await Characters.add(characterData)
+            const characters = await db('characters')
+
+            expect(characters.length).toBe(1);
+        })
+
+        it('should resolve to a new hobbit', async () => {
+            const characterData = { name: 'Han Solo' };
+            const character = await Characters.add(characterData)
+            const characters = await db('characters')
+
+            expect(characters).toEqual([{ id: 1, name: 'Han Solo' }]);
+        })
+    })
+
+    describe('the remove function', async () => {
+
+        it('should remove a character', async () => {
+            const characterData = { name: 'Han Solo' };
+            const character = await Characters.add(characterData)
+            const characters = await db('characters')
+
+            expect(characters.length).toBe(1);
+
+            const remove = await Characters.remove(1);
+            const newCharacters = await db('characters')
+
+            expect(newCharacters.length).toBe(0);
+        })
+
+        it('should return status code of 200', async () => {
+            const characterData = { name: 'Han Solo' };
+            const character = await Characters.add(characterData)
+            const characters = await db('characters')
+
+            expect(characters.length).toBe(1);
+
+            const res = await request(server).delete('/api/starwars/1').set('Accept', 'application/json').send("1");
+
+            expect(res.status).toBe(200);
+        })
     })
 })
